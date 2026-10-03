@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "template": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "version": {
+              "type": "string",
+              "pattern": "^\\d+\\.\\d+\\.\\d+$"
+            },
+            "library": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "mode": {
+      "const": "design_system"
+    },
+    "sheets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 31,
+            "pattern": "^[^\\\\/\\?\\*\\[\\]:]+$"
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "header": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "maximum": 255
+                },
+                "numberFormat": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "key",
+                "header"
+              ]
+            },
+            "minItems": 1
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "oneOf": [
+                  {
+                    "type": [
+                      "string",
+                      "number",
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "formula": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^[^=]"
+                      },
+                      "result": {
+                        "type": [
+                          "string",
+                          "number",
+                          "boolean",
+                          "null"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "formula"
+                    ]
+                  }
+                ]
+              }
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "name",
+          "columns",
+          "rows"
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "title",
+    "sheets"
+  ],
+  "title": "Workbook production plan"
+}

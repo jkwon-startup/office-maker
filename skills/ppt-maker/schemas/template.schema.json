@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Portable PPT template library",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "templates"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "templates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/template" }
+    }
+  },
+  "$defs": {
+    "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+    "safeLabel": { "type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[^@\\r\\n]+$" },
+    "relativeAsset": {
+      "type": "string",
+      "pattern": "^assets/templates/T[0-9]{3,6}/v[0-9]+\\.[0-9]+\\.[0-9]+/[a-z0-9][a-z0-9-]*\\.(pptx|png|jpg|jpeg|webp)$"
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "x", "y", "w", "h"],
+      "properties": {
+        "role": { "enum": ["title", "subtitle", "body", "image", "table", "chart", "diagram", "footer"] },
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 },
+        "w": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "h": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "regions"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{0,39}$" },
+        "kind": { "enum": ["title", "body", "image_left", "image_right", "comparison", "table", "chart", "roadmap", "kpi", "closing"] },
+        "regions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/region" } }
+      }
+    },
+    "design": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["colors", "fonts", "typography", "spacing", "shapeStyle"],
+      "properties": {
+        "colors": {
+          "type": "object", "additionalProperties": false,
+          "required": ["background", "heading", "text", "accent", "muted"],
+          "properties": {
+            "background": { "$ref": "#/$defs/color" }, "heading": { "$ref": "#/$defs/color" },
+            "text": { "$ref": "#/$defs/color" }, "accent": { "$ref": "#/$defs/color" },
+            "muted": { "$ref": "#/$defs/color" }
+          }
+        },
+        "fonts": {
+          "type": "object", "additionalProperties": false,
+          "required": ["heading", "body", "fallbacks"],
+          "properties": {
+            "heading": { "$ref": "#/$defs/safeLabel" }, "body": { "$ref": "#/$defs/safeLabel" },
+            "fallbacks": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/safeLabel" } }
+          }
+        },
+        "typography": {
+          "type": "object", "additionalProperties": false,
+          "required": ["titlePt", "bodyPt", "captionPt"],
+          "properties": {
+            "titlePt": { "type": "number", "minimum": 18, "maximum": 72 },
+            "bodyPt": { "type": "number", "minimum": 12, "maximum": 36 },
+            "captionPt": { "type": "number", "minimum": 8, "maximum": 20 }
+          }
+        },
+        "spacing": {
+          "type": "object", "additionalProperties": false,
+          "required": ["marginX", "marginY", "gap"],
+          "properties": {
+            "marginX": { "type": "number", "minimum": 0, "maximum": 0.25 },
+            "marginY": { "type": "number", "minimum": 0, "maximum": 0.25 },
+            "gap": { "type": "number", "minimum": 0, "maximum": 0.25 }
+          }
+        },
+        "shapeStyle": { "enum": ["square", "rounded", "minimal"] }
+      }
+    },
+    "template": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "name", "version", "status", "origin", "aspectRatio", "modes", "design", "layouts", "checks"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^T[0-9]{3,6}$" },
+        "name": { "$ref": "#/$defs/safeLabel" },
+        "aliases": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/safeLabel" } },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "status": { "enum": ["draft", "ready", "retired"] },
+        "origin": { "enum": ["pptx", "pdf", "image", "generated"] },
+        "aspectRatio": { "enum": ["16:9", "4:3"] },
+        "modes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["design_system", "original_template"] } },
+        "tags": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/safeLabel" } },
+        "design": { "$ref": "#/$defs/design" },
+        "layouts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/layout" } },
+        "assets": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "template": { "$ref": "#/$defs/relativeAsset" }, "preview": { "$ref": "#/$defs/relativeAsset" }
+          }
+        },
+        "checks": {
+          "type": "object", "additionalProperties": false,
+          "required": ["privacy", "visual", "compatibility"],
+          "properties": {
+            "privacy": { "enum": ["pending", "passed"] },
+            "visual": { "enum": ["pending", "passed"] },
+            "compatibility": { "enum": ["pending", "passed"] }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "ready" } } },
+          "then": { "properties": { "checks": { "properties": { "privacy": { "const": "passed" }, "visual": { "const": "passed" }, "compatibility": { "const": "passed" } } } } }
+        },
+        {
+          "if": { "properties": { "origin": { "enum": ["pdf", "image"] } } },
+          "then": { "properties": { "modes": { "items": { "const": "design_system" } } } }
+        },
+        {
+          "if": { "properties": { "modes": { "contains": { "const": "original_template" } } } },
+          "then": { "required": ["assets"], "properties": { "assets": { "required": ["template"], "properties": { "template": { "pattern": "\\.pptx$" } } } } }
+        },
+        {
+          "properties": { "assets": { "properties": { "preview": { "pattern": "\\.(png|jpg|jpeg|webp)$" } } } }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "보고서 만들기"
+  short_description: "필요한 입력과 보고서 양식을 확인하고 항목·순서·디자인에 맞춰 DOCX를 만듭니다."
+  default_prompt: "Use $word-maker to ask for my missing report requirements and template choice, then write and validate an editable DOCX report that follows the selected template."
+policy:
+  allow_implicit_invocation: true

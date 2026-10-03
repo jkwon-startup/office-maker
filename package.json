@@ -1,0 +1,29 @@
+{
+  "name": "office-maker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Portable PPTX, XLSX, DOCX skills and a shared-content OSMU pipeline.",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "doctor": "node common/runtime/doctor.mjs",
+    "release:check": "node tools/release-check.mjs",
+    "ppt": "node skills/ppt-maker/scripts/generate.mjs",
+    "excel": "node skills/excel-maker/scripts/generate.mjs",
+    "word": "node skills/word-maker/scripts/generate.mjs",
+    "osmu": "node skills/osmu-maker/scripts/run.mjs"
+  },
+  "dependencies": {
+    "docx": "9.6.1",
+    "exceljs": "4.4.0",
+    "jszip": "3.10.1",
+    "pptxgenjs": "4.0.1"
+  },
+  "overrides": {
+    "pptxgenjs": { "image-size": "2.0.3" },
+    "exceljs": { "uuid": "11.1.1" }
+  },
+  "files": ["plugin.json", "skills/", "common/", "pipelines/", "tools/", "examples/", "tests/", "docs/", ".github/", ".agents/plugins/marketplace.json", ".gitignore", "package-lock.json", "README.md", "LICENSE"]
+}

@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1.0",
+  "formats": {
+    "ppt": { "extension": ".pptx", "plan": "slides", "generator": "skills/ppt-maker/scripts/generate.mjs" },
+    "excel": { "extension": ".xlsx", "plan": "workbook", "generator": "skills/excel-maker/scripts/generate.mjs" },
+    "word": { "extension": ".docx", "plan": "document", "generator": "skills/word-maker/scripts/generate.mjs" }
+  }
+}

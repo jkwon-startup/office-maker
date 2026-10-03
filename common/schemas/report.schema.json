@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "format": {
+      "enum": [
+        "ppt",
+        "excel",
+        "word"
+      ]
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "WARN",
+        "FAIL",
+        "PLANNED",
+        "COMPLETE",
+        "PARTIAL",
+        "FAILED"
+      ]
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0
+    },
+    "manualChecks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0
+    },
+    "template": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ]
+    },
+    "output": {
+      "type": "string"
+    },
+    "createdSlides": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "notesWritten": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "createdSheets": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "formats": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "ppt",
+          "excel",
+          "word"
+        ]
+      },
+      "minItems": 0
+    },
+    "plans": {
+      "type": "object"
+    },
+    "results": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "CREATED",
+              "FAILED"
+            ]
+          },
+          "output": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "report": {
+            "$ref": "#"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      }
+    }
+  },
+  "required": [
+    "status"
+  ],
+  "additionalProperties": false,
+  "title": "Validation or pipeline report"
+}

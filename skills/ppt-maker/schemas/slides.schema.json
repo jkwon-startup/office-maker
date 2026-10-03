@@ -1,0 +1,399 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "template": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "version": {
+              "type": "string",
+              "pattern": "^\\d+\\.\\d+\\.\\d+$"
+            },
+            "library": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "mode": {
+      "const": "design_system"
+    },
+    "language": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      },
+      "minItems": 0
+    },
+    "notes": {
+      "type": "boolean"
+    },
+    "slideCount": {
+      "type": "integer",
+      "minimum": 2
+    },
+    "durationSeconds": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "slides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "layout": {
+            "enum": [
+              "title",
+              "body",
+              "comparison",
+              "roadmap",
+              "kpi",
+              "closing"
+            ]
+          },
+          "layoutId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "bullets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 60
+                },
+                "label": {
+                  "type": "string",
+                  "maxLength": 30
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "minItems": 0
+          },
+          "left": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "heading": {
+                "type": "string",
+                "minLength": 1
+              },
+              "bullets": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 60
+                    },
+                    "label": {
+                      "type": "string",
+                      "maxLength": 30
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "heading",
+              "bullets"
+            ]
+          },
+          "right": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "heading": {
+                "type": "string",
+                "minLength": 1
+              },
+              "bullets": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 60
+                    },
+                    "label": {
+                      "type": "string",
+                      "maxLength": 30
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ]
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "heading",
+              "bullets"
+            ]
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "timing": {
+                  "type": "string"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "deliverable": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "minItems": 2,
+            "maxItems": 5
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "value": {
+                  "type": [
+                    "string",
+                    "number"
+                  ]
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "method": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "fact",
+                    "target",
+                    "assumption"
+                  ]
+                }
+              },
+              "required": [
+                "name",
+                "status"
+              ],
+              "anyOf": [
+                {
+                  "required": [
+                    "value"
+                  ]
+                },
+                {
+                  "required": [
+                    "method"
+                  ]
+                }
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 3
+          },
+          "actionRequest": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "seconds": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "layout",
+          "title"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "layout": {
+                  "const": "comparison"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "left",
+                "right"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "layout": {
+                  "const": "roadmap"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "stages"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "layout": {
+                  "const": "kpi"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "metrics"
+              ]
+            }
+          }
+        ]
+      },
+      "minItems": 2
+    }
+  },
+  "required": [
+    "title",
+    "slides"
+  ],
+  "title": "PPT production plan",
+  "allOf": [
+    {
+      "if": {
+        "not": {
+          "properties": {
+            "notes": {
+              "const": false
+            }
+          },
+          "required": [
+            "notes"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "slides": {
+            "items": {
+              "properties": {
+                "notes": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "notes"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ]
+}

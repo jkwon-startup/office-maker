@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "topic": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "keyPoints": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 60
+      },
+      "minItems": 1
+    },
+    "nextAction": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      },
+      "minItems": 0
+    },
+    "slides": {
+      "$ref": "../../skills/ppt-maker/schemas/slides.schema.json"
+    },
+    "workbook": {
+      "$ref": "../../skills/excel-maker/schemas/workbook.schema.json"
+    },
+    "document": {
+      "$ref": "../../skills/word-maker/schemas/document.schema.json"
+    }
+  },
+  "required": [
+    "topic",
+    "summary",
+    "keyPoints",
+    "sources"
+  ],
+  "title": "Canonical content"
+}

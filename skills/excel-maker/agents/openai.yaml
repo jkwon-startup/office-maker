@@ -1,0 +1,6 @@
+interface:
+  display_name: "엑셀 만들기"
+  short_description: "입력을 확인하고 자료 분석·계산 검증을 거쳐 엑셀 파일을 만듭니다."
+  default_prompt: "Use $excel-maker to ask for my missing requirements and template choice, analyze supplied data when needed, and create a verified editable XLSX."
+policy:
+  allow_implicit_invocation: true

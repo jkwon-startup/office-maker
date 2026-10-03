@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "templates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^W[0-9]{3,6}$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "ready",
+              "retired"
+            ]
+          },
+          "modes": {
+            "type": "array",
+            "items": {
+              "const": "design_system"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "design": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "font": {
+                "type": "string",
+                "minLength": 1
+              },
+              "bodyPt": {
+                "type": "number",
+                "minimum": 6,
+                "maximum": 36
+              },
+              "headingPt": {
+                "type": "number",
+                "minimum": 8,
+                "maximum": 72
+              },
+              "titlePt": {
+                "type": "number",
+                "minimum": 8,
+                "maximum": 72
+              },
+              "lineSpacing": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 3
+              },
+              "paragraphAfterPt": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 36
+              },
+              "headingFont": {
+                "type": "string",
+                "minLength": 1
+              },
+              "headingColor": {
+                "type": "string",
+                "pattern": "^#[0-9a-fA-F]{6}$"
+              },
+              "tableHeaderColor": {
+                "type": "string",
+                "pattern": "^#[0-9a-fA-F]{6}$"
+              },
+              "page": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "size": {
+                    "enum": [
+                      "A4",
+                      "LETTER"
+                    ]
+                  },
+                  "orientation": {
+                    "enum": [
+                      "portrait",
+                      "landscape"
+                    ]
+                  },
+                  "marginMm": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "top": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 60
+                      },
+                      "right": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 60
+                      },
+                      "bottom": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 60
+                      },
+                      "left": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 60
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "font",
+              "bodyPt"
+            ]
+          },
+          "checks": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "privacy": {
+                "enum": [
+                  "pending",
+                  "passed"
+                ]
+              },
+              "visual": {
+                "enum": [
+                  "pending",
+                  "passed"
+                ]
+              },
+              "compatibility": {
+                "enum": [
+                  "pending",
+                  "passed"
+                ]
+              }
+            },
+            "required": [
+              "privacy",
+              "visual",
+              "compatibility"
+            ]
+          },
+          "report": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "sections": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "heading": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "level": {
+                      "type": "integer",
+                      "enum": [
+                        1,
+                        2,
+                        3
+                      ]
+                    },
+                    "required": {
+                      "type": "boolean"
+                    },
+                    "guidance": {
+                      "type": "string"
+                    },
+                    "tableHeaders": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "pageBreakBefore": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "heading",
+                    "required"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "sections"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "version",
+          "status",
+          "modes",
+          "design",
+          "checks"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "ready"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "checks": {
+                  "properties": {
+                    "privacy": {
+                      "const": "passed"
+                    },
+                    "visual": {
+                      "const": "passed"
+                    },
+                    "compatibility": {
+                      "const": "passed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "templates"
+  ],
+  "title": "word template registry"
+}

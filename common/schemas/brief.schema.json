@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "topic": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "audience": {
+      "type": "string"
+    },
+    "formats": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "ppt",
+          "excel",
+          "word"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "materials": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 0
+    },
+    "research": {
+      "enum": [
+        "supplied",
+        "web"
+      ]
+    },
+    "outputDir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "runDir": {
+      "type": "string"
+    },
+    "ppt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "slideCount": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "durationMinutes": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "notes": {
+          "type": "boolean"
+        },
+        "template": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "version": {
+                  "type": "string",
+                  "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                },
+                "library": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          ]
+        }
+      },
+      "required": []
+    },
+    "excel": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "template": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "version": {
+                  "type": "string",
+                  "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                },
+                "library": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          ]
+        }
+      },
+      "required": []
+    },
+    "word": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "template": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "version": {
+                  "type": "string",
+                  "pattern": "^\\d+\\.\\d+\\.\\d+$"
+                },
+                "library": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          ]
+        }
+      },
+      "required": []
+    }
+  },
+  "required": [
+    "topic",
+    "purpose",
+    "formats",
+    "outputDir"
+  ],
+  "title": "Interactive brief"
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "한 번에 만들기"
+  short_description: "입력을 확인하고 템플릿에 맞춰 편집 가능한 문서를 만듭니다."
+  default_prompt: "Use $osmu-maker to ask for my missing requirements and template choice, then create the requested editable files."
+policy:
+  allow_implicit_invocation: true
