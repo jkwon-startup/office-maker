@@ -23,7 +23,8 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: npm
-      - run: npm ci --ignore-scripts
+      - run: node common/runtime/setup.mjs --install
+      - run: node common/runtime/setup.mjs --check
       - run: npm run doctor
       - run: npm test
       - run: npm run release:check

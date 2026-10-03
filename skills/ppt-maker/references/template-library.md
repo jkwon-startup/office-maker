@@ -4,7 +4,7 @@
 
 ## 1. 데이터와 저장 경계
 
-- `assets/templates/index.json`: 배포 가능한 템플릿 목록. 초기값은 빈 배열이다.
+- `assets/templates/index.json`: 배포 가능한 템플릿 목록. 기본 발표 T001을 포함한다. 가상 예제와 LibreOffice 검토 범위는 `../../../examples/synthetic/expected-results.md`에 기록한다.
 - `schemas/template.schema.json`: 목록과 디자인 프로필의 JSON Schema 2020-12 계약.
 - 등록 항목은 템플릿마다 ID, 중립적 이름, 버전, 상태, 입력 종류, 화면 비율, 제작 모드, 디자인 토큰, 레이아웃, 검토 상태를 가진다.
 - 자산 참조는 스킬 루트 기준 상대 경로다. 경로 형식은 `assets/templates/T001/v1.0.0/template.pptx` 또는 같은 폴더의 `preview.png`처럼 고정한다. 공개 파일 이름에 원본 고객 파일 이름을 사용하지 않는다.

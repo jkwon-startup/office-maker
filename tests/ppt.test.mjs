@@ -41,3 +41,24 @@ test('generated PPTX preserves editable text and speaker notes', { skip: !proces
   assert.match(notes, /Explain the example/);
   assert.match(notes, /Synthetic material/);
 });
+
+test('title subtitle appears once in the editable slide', async () => {
+  const p = structuredClone(presentation); p.slides[0].subtitle = 'A clear introduction';
+  const { bytes } = await generatePresentation(p);
+  const zip = await loadDependency('jszip').loadAsync(bytes);
+  const xml = await zip.file('ppt/slides/slide1.xml').async('string');
+  assert.equal(xml.split('A clear introduction').length - 1, 1);
+});
+
+test('Korean KPI slides show reader-facing assumption labels', async () => {
+  const { generatePresentation } = await import('../skills/ppt-maker/scripts/generate.mjs');
+  const { loadDependency } = await import('../common/runtime/doctor.mjs');
+  const plan = structuredClone(presentation);
+  plan.language = 'ko-KR';
+  plan.slides[1] = { id: 'metrics', layout: 'kpi', title: '검토 지표', metrics: [{ name: '가상 소요 시간', value: 30, unit: '분', status: 'assumption' }], notes: '가상 입력으로 실제 성과가 아닙니다.' };
+  const result = await generatePresentation(plan);
+  const zip = await loadDependency('jszip').loadAsync(result.bytes);
+  const xml = await zip.file('ppt/slides/slide2.xml').async('string');
+  assert.match(xml, /가정/);
+  assert.doesNotMatch(xml, /assumption/);
+});

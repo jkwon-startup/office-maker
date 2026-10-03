@@ -63,13 +63,14 @@ export async function generatePresentation(plan) {
       for (const [i, item] of items.entries()) {
         const x = bodyBox.x + i * (w + gap);
         slide.addShape(ppt.ShapeType.rect, { x, y: bodyBox.y, w, h: bodyBox.h, fill: { color: color('background') }, line: { color: color('accent'), width: 1 } });
+        const status = plan.language?.startsWith('ko') ? ({ fact: '확인값', target: '목표', assumption: '가정' }[item.status] || item.status) : item.status;
         const text = data.layout === 'roadmap'
           ? [item.name, item.timing, item.owner, item.deliverable].filter(Boolean).join('\n\n')
-          : [item.name, item.value === undefined ? item.method : String(item.value) + (item.unit || ''), item.status].filter(Boolean).join('\n\n');
+          : [item.name, item.value === undefined ? item.method : String(item.value) + (item.unit || ''), status].filter(Boolean).join('\n\n');
         write(text, { x: x + 0.1, y: bodyBox.y + 0.15, w: w - 0.2, h: bodyBox.h - 0.3 }, { fontSize: Math.min(bodySize, 18) });
       }
     } else {
-      write(bulletText(data.bullets) || data.actionRequest || data.subtitle || '', bodyBox);
+      write(bulletText(data.bullets) || data.actionRequest || (data.layout === 'title' ? '' : data.subtitle) || '', bodyBox);
     }
     const footer = region('footer', { x: marginX, y: height - 0.55, w: width - marginX * 2, h: 0.25 });
     const sourceLabel = (data.sources || []).map(id => sourceMap.get(id)?.title || id).join(' · ');

@@ -1,4 +1,26 @@
 {
   "schemaVersion": "1.0",
-  "templates": []
+  "templates": [
+    {
+      "id": "E001",
+      "name": "기본 실행표",
+      "version": "1.0.0",
+      "status": "ready",
+      "modes": [
+        "design_system"
+      ],
+      "design": {
+        "font": "Arial",
+        "bodyPt": 11,
+        "headerColor": "#18324A",
+        "columnWidth": 24,
+        "orientation": "landscape"
+      },
+      "checks": {
+        "privacy": "passed",
+        "visual": "passed",
+        "compatibility": "passed"
+      }
+    }
+  ]
 }

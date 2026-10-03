@@ -19,13 +19,13 @@ test('real OSMU outputs open, preserve content and resume without rewriting', as
     assert.equal(result.status, 'COMPLETE');
     const JSZip = loadDependency('jszip');
     const ppt = await JSZip.loadAsync(await readFile(result.results.ppt.output));
-    assert.equal(ppt.file(/^ppt\/slides\/slide\d+\.xml$/).length, content.keyPoints.length + 2);
-    assert.equal(ppt.file(/^ppt\/notesSlides\/notesSlide\d+\.xml$/).length, content.keyPoints.length + 2);
+    assert.equal(ppt.file(/^ppt\/slides\/slide\d+\.xml$/).length, (content.slides?.slides.length ?? content.keyPoints.length + 2));
+    assert.equal(ppt.file(/^ppt\/notesSlides\/notesSlide\d+\.xml$/).length, (content.slides?.slides.length ?? content.keyPoints.length + 2));
     const doc = await JSZip.loadAsync(await readFile(result.results.word.output));
     assert.match(await doc.file('word/document.xml').async('string'), new RegExp(content.topic));
     const ExcelJS = loadDependency('exceljs'); const workbook = new ExcelJS.Workbook();
     await workbook.xlsx.readFile(result.results.excel.output);
-    assert.equal(workbook.worksheets[0].getCell('A2').value, content.keyPoints[0]);
+    assert.equal(workbook.worksheets[0].getCell('A2').value, (content.workbook?.sheets[0].rows[0][content.workbook.sheets[0].columns[0].key] ?? content.keyPoints[0]));
     const before = await Promise.all(Object.values(result.results).map(r => stat(r.output)));
     const resumed = await runPipeline(content, options);
     assert.deepEqual(resumed.results, result.results);

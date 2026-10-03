@@ -7,6 +7,8 @@ description: "Create editable PPTX presentations from a topic or supplied materi
 
 Produce an editable PPTX presentation using a user-selected template and a short interactive brief. Follow the shared [input guide](../../common/references/input-guide.md), [privacy rules](../../common/references/privacy.md), and [source rules](../../common/references/sources.md). This is a portable skill: do not assume a particular user's account, computer, language, private tools, brand, or home directory.
 
+실제 파일 생성 전 [첫 실행 준비](../../common/references/first-run.md)를 따른다. 스킬이 설치 위치와 의존성을 확인하고 현재 권한 안에서 준비한다. 사용자에게 캐시 위치나 개발자용 검사 명령을 요구하지 않는다. 이후 명령은 준비 결과의 `root`에서 실행한다.
+
 ## Start with the user's brief
 
 Use the conversation and supplied material to prefill known values. On activation, display the following form in the user's language, including the real template choices from the library. Ask only for missing values; do not make the user repeat information.
@@ -92,4 +94,4 @@ Only include additional exports such as PDF when requested or needed for a suppo
 
 ## Public-package boundary
 
-The public package starts with an empty registry. Do not insert personal names, contact details, account identifiers, private paths, customer documents, screenshots of real work, or identifying metadata into its examples or assets. A user's upload is input for their task, not authorization to publish it. Apply the full registration privacy review before promoting any design or asset to the distributable library.
+The public package includes one synthetic-reviewed neutral profile per format; see examples/synthetic/expected-results.md for review scope. Do not insert personal names, contact details, account identifiers, private paths, customer documents, screenshots of real work, or identifying metadata into its examples or assets. A user's upload is input for their task, not authorization to publish it. Apply the full registration privacy review before promoting any design or asset to the distributable library.

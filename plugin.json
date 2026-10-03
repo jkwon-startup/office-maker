@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "office-maker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Interactive PPT, Excel, Word skills and an OSMU workflow with reusable template designs.",
   "license": "MIT"
 }

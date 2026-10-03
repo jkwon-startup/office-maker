@@ -1,11 +1,290 @@
 {
   "topic": "가상 업무 개선 워크숍",
-  "summary": "이 예시는 가상 자료입니다. 업무를 정리하고 작은 개선을 실행하는 방법을 소개합니다.",
+  "summary": "가상 연습 자료입니다. 반복 업무의 병목을 찾고, 작은 개선을 실행한 뒤 같은 기준으로 효과를 확인합니다.",
   "keyPoints": [
     "반복 업무를 목록으로 정리합니다.",
     "작은 개선 과제를 하나 선택합니다.",
     "실행 결과를 함께 검토합니다."
   ],
-  "nextAction": "가상 연습 과제를 정하고 검토 일정을 합의합니다.",
-  "sources": []
+  "nextAction": "다음 연습에서 개선 과제 하나와 검토 기준을 합의합니다.",
+  "sources": [],
+  "slides": {
+    "title": "가상 업무 개선 워크숍",
+    "template": {
+      "id": "T001",
+      "version": "1.0.0"
+    },
+    "mode": "design_system",
+    "language": "ko-KR",
+    "sources": [],
+    "slides": [
+      {
+        "id": "intro",
+        "layout": "title",
+        "title": "가상 업무 개선 워크숍",
+        "subtitle": "작은 개선 하나를 끝까지 실행하기 · 가상 예시",
+        "notes": "실제 조직이나 성과가 아닌 가상 연습 자료입니다."
+      },
+      {
+        "id": "compare",
+        "layout": "comparison",
+        "title": "반복 업무를 어떻게 바꿀까요?",
+        "left": {
+          "heading": "개선 전 · 가상 상황",
+          "bullets": [
+            {
+              "text": "같은 정보를 여러 번 입력합니다."
+            },
+            {
+              "text": "완료 기준이 서로 다릅니다."
+            }
+          ]
+        },
+        "right": {
+          "heading": "개선 후 · 연습 목표",
+          "bullets": [
+            {
+              "text": "한 번 정리한 정보를 함께 사용합니다."
+            },
+            {
+              "text": "같은 기준으로 완료를 확인합니다."
+            }
+          ]
+        },
+        "notes": "개선 전은 가상 상황이며 개선 후는 제안입니다."
+      },
+      {
+        "id": "roadmap",
+        "layout": "roadmap",
+        "title": "세 단계로 작은 개선을 실행합니다",
+        "stages": [
+          {
+            "name": "1. 발견",
+            "timing": "첫 번째 연습",
+            "deliverable": "반복 업무 목록"
+          },
+          {
+            "name": "2. 실행",
+            "timing": "두 번째 연습",
+            "deliverable": "개선 과제 하나"
+          },
+          {
+            "name": "3. 검토",
+            "timing": "세 번째 연습",
+            "deliverable": "결과와 다음 행동"
+          }
+        ],
+        "notes": "상대적 연습 순서입니다. 실제 일정과 담당자는 사용자가 정합니다."
+      },
+      {
+        "id": "metrics",
+        "layout": "kpi",
+        "title": "같은 단위로 효과를 확인합니다",
+        "subtitle": "아래 값은 계산을 연습하기 위한 가정입니다.",
+        "metrics": [
+          {
+            "name": "개선 전 소요 시간",
+            "value": 30,
+            "unit": "분",
+            "status": "assumption"
+          },
+          {
+            "name": "개선 후 소요 시간",
+            "value": 20,
+            "unit": "분",
+            "status": "assumption"
+          },
+          {
+            "name": "절감 시간",
+            "value": 10,
+            "unit": "분",
+            "status": "assumption"
+          }
+        ],
+        "notes": "가상 입력 30분과 20분의 차이는 10분입니다. 실제 측정 결과로 표현하지 않습니다."
+      },
+      {
+        "id": "closing",
+        "layout": "closing",
+        "title": "다음 연습에서 시작할 행동",
+        "actionRequest": "다음 연습에서 개선 과제 하나와 검토 기준을 합의합니다.",
+        "notes": "실행 과제와 검토 기준을 합의합니다. 실제 담당자와 날짜를 만들어 넣지 않습니다."
+      }
+    ]
+  },
+  "workbook": {
+    "title": "가상 업무 개선 워크숍",
+    "template": {
+      "id": "E001",
+      "version": "1.0.0"
+    },
+    "mode": "design_system",
+    "sheets": [
+      {
+        "name": "실행 계획",
+        "columns": [
+          {
+            "key": "step",
+            "header": "단계",
+            "width": 14
+          },
+          {
+            "key": "task",
+            "header": "실행 과제",
+            "width": 34
+          },
+          {
+            "key": "result",
+            "header": "완료 기준",
+            "width": 30
+          },
+          {
+            "key": "status",
+            "header": "진행 상태",
+            "width": 18
+          }
+        ],
+        "rows": [
+          {
+            "step": "1. 발견",
+            "task": "반복 업무를 목록으로 정리",
+            "result": "반복 입력과 대기 구간 확인",
+            "status": "연습 예정"
+          },
+          {
+            "step": "2. 실행",
+            "task": "작은 개선 과제 하나 실행",
+            "result": "같은 정보의 중복 입력 줄이기",
+            "status": "연습 예정"
+          },
+          {
+            "step": "3. 검토",
+            "task": "실행 전후를 같은 기준으로 비교",
+            "result": "결과와 다음 행동 합의",
+            "status": "연습 예정"
+          }
+        ]
+      },
+      {
+        "name": "가상 계산",
+        "columns": [
+          {
+            "key": "task",
+            "header": "항목",
+            "width": 28
+          },
+          {
+            "key": "before",
+            "header": "개선 전(분)",
+            "width": 16
+          },
+          {
+            "key": "after",
+            "header": "개선 후(분)",
+            "width": 16
+          },
+          {
+            "key": "saved",
+            "header": "절감(분)",
+            "width": 14
+          },
+          {
+            "key": "rate",
+            "header": "절감률",
+            "width": 14,
+            "numberFormat": "0.0%"
+          }
+        ],
+        "rows": [
+          {
+            "task": "반복 입력 · 가상 가정",
+            "before": 30,
+            "after": 20,
+            "saved": {
+              "formula": "B2-C2",
+              "result": 10
+            },
+            "rate": {
+              "formula": "D2/B2",
+              "result": 0.3333333333333333
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "document": {
+    "title": "가상 업무 개선 워크숍",
+    "template": {
+      "id": "W001",
+      "version": "1.0.0"
+    },
+    "mode": "design_system",
+    "sections": [
+      {
+        "heading": "요약",
+        "paragraphs": [
+          "이 보고서는 반복 업무 개선을 연습하는 가상 자료입니다. 병목을 발견하고, 작은 과제 하나를 실행하며, 동일한 기준으로 결과를 검토하는 방법을 제안합니다."
+        ],
+        "templateSectionId": "summary",
+        "level": 1
+      },
+      {
+        "heading": "문제와 개선 방향",
+        "paragraphs": [
+          "가상 상황에서는 같은 정보를 여러 번 입력하고 완료 기준이 서로 다릅니다. 한 번 정리한 정보를 함께 사용하고 완료 기준을 합의하는 방식으로 개선을 연습합니다."
+        ],
+        "templateSectionId": "problem",
+        "level": 1
+      },
+      {
+        "heading": "실행 계획",
+        "paragraphs": [
+          "세 단계는 실제 날짜를 정한 일정이 아니라 연습 순서입니다. 실제 담당자와 일정은 실행 전에 정합니다."
+        ],
+        "table": {
+          "headers": [
+            "단계",
+            "실행 과제",
+            "완료 기준"
+          ],
+          "rows": [
+            [
+              "1. 발견",
+              "반복 업무 목록 정리",
+              "반복 입력과 대기 구간 확인"
+            ],
+            [
+              "2. 실행",
+              "작은 개선 과제 하나 실행",
+              "중복 입력 줄이기"
+            ],
+            [
+              "3. 검토",
+              "전후를 같은 기준으로 비교",
+              "결과와 다음 행동 합의"
+            ]
+          ]
+        },
+        "templateSectionId": "plan",
+        "level": 1
+      },
+      {
+        "heading": "검토 기준",
+        "paragraphs": [
+          "같은 업무 범위와 시간 단위로 개선 전후를 비교합니다. 계산 연습에서 가정한 30분과 20분의 차이는 10분이며 절감률은 약 33.3%입니다. 이 값은 실제 측정 결과나 보장된 성과가 아닙니다."
+        ],
+        "templateSectionId": "review",
+        "level": 1
+      },
+      {
+        "heading": "다음 행동",
+        "paragraphs": [
+          "다음 연습에서 개선 과제 하나와 검토 기준을 합의합니다."
+        ],
+        "templateSectionId": "next",
+        "level": 1
+      }
+    ]
+  }
 }

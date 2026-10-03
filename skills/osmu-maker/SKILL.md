@@ -7,6 +7,8 @@ description: "Create PPTX, XLSX and DOCX together from one canonical source. Ask
 
 Use the user's language. Read [input guide](../../common/references/input-guide.md), [privacy](../../common/references/privacy.md), [sources](../../common/references/sources.md), and [workflow](../../pipelines/osmu/workflow.md).
 
+실제 파일 생성 전 [첫 실행 준비](../../common/references/first-run.md)를 따른다. 스킬이 설치 위치와 의존성을 확인하고 현재 권한 안에서 준비한다. 사용자에게 캐시 위치나 개발자용 검사 명령을 요구하지 않는다. 이후 명령은 준비 결과의 `root`에서 실행한다.
+
 1. Prefill the shared topic, purpose, reader and source material. Ask for missing values, each format's role and template, and explicit output/work locations. Wait for answers unless optional defaults are explicitly requested. Do not repeat three independent questionnaires.
 2. Normalize the verified source to `common/schemas/content.schema.json`. Preserve source IDs, facts, units, dates and uncertainty. Reject conflicting canonical facts before producing documents.
 3. Follow the PPT, Excel and Word sibling skills to write purpose-specific plans. PPT tells a presentation story; Excel supports data/action tracking; Word explains the detail. Embed plans in `slides`, `workbook`, `document` for richer output. A supplied slide plan must retain the canonical source list. Propagate references to each format without falsely attributing every claim to every source.

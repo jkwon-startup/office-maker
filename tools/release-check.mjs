@@ -9,6 +9,27 @@ const privatePaths = /^(?:node_modules|\.cache|\.git|work|outputs|inputs|setting
 const personalPath = /\/(?:Users|home)\/[a-zA-Z0-9._-]+\/|[A-Z]:\\Users\\[^\\\s"'<>]+\\/i;
 const contactMarker = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 const secretMarker = /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|\bgh[pousr]_[A-Za-z0-9]{30,}\b|\bsk-[A-Za-z0-9_-]{30,}\b/;
+const reviewedPreviews = new Set(['ppt', 'excel', 'word'].map(kind => 'examples/synthetic/previews/' + kind + '.png'));
+
+export function isPlainPreviewPng(bytes) {
+  if (bytes.length > 4 * 1024 * 1024 || bytes.length < 45 || !bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return false;
+  let offset = 8, header = false, data = false;
+  while (offset + 12 <= bytes.length) {
+    const length = bytes.readUInt32BE(offset);
+    const type = bytes.toString('ascii', offset + 4, offset + 8);
+    if (offset + 12 + length > bytes.length || !['IHDR', 'IDAT', 'IEND'].includes(type)) return false;
+    if (type === 'IHDR') {
+      if (header || offset !== 8 || length !== 13) return false;
+      const width = bytes.readUInt32BE(offset + 8), height = bytes.readUInt32BE(offset + 12);
+      if (!width || !height || width > 10000 || height > 10000) return false;
+      header = true;
+    } else if (!header) return false;
+    if (type === 'IDAT') data = true;
+    if (type === 'IEND') return data && length === 0 && offset + 12 === bytes.length;
+    offset += length + 12;
+  }
+  return false;
+}
 
 export async function collectReleaseFiles(root = packageRoot) {
   const files = [];
@@ -33,6 +54,10 @@ export async function auditRelease(root = packageRoot) {
   for (const file of files) {
     if (privatePaths.test(file) || file.startsWith('examples/') && !file.startsWith('examples/synthetic/')) {
       errors.push({ file, reason: 'Private or non-synthetic file in release' }); continue;
+    }
+    if (reviewedPreviews.has(file)) {
+      if (!isPlainPreviewPng(await readFile(path.join(root, file)))) errors.push({ file, reason: 'Preview PNG is malformed or contains unreviewed metadata' });
+      continue;
     }
     if (!['.md', '.json', '.mjs', '.yml', '.yaml'].includes(path.extname(file)) && !['LICENSE', '.gitignore'].includes(file)) {
       errors.push({ file, reason: 'Additional asset requires a separate privacy and rights review' }); continue;

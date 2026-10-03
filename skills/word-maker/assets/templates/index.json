@@ -1,4 +1,78 @@
 {
   "schemaVersion": "1.0",
-  "templates": []
+  "templates": [
+    {
+      "id": "W001",
+      "name": "기본 보고서",
+      "version": "1.0.0",
+      "status": "ready",
+      "modes": [
+        "design_system"
+      ],
+      "design": {
+        "font": "Arial",
+        "bodyPt": 11,
+        "headingPt": 16,
+        "titlePt": 24,
+        "lineSpacing": 1.15,
+        "paragraphAfterPt": 8,
+        "headingColor": "#18324A",
+        "tableHeaderColor": "#E8EEF3",
+        "page": {
+          "size": "A4",
+          "orientation": "portrait",
+          "marginMm": {
+            "top": 25.4,
+            "right": 25.4,
+            "bottom": 25.4,
+            "left": 25.4
+          }
+        }
+      },
+      "checks": {
+        "privacy": "passed",
+        "visual": "passed",
+        "compatibility": "passed"
+      },
+      "report": {
+        "sections": [
+          {
+            "id": "summary",
+            "heading": "요약",
+            "required": true,
+            "level": 1
+          },
+          {
+            "id": "problem",
+            "heading": "문제와 개선 방향",
+            "required": true,
+            "level": 1
+          },
+          {
+            "id": "plan",
+            "heading": "실행 계획",
+            "required": true,
+            "level": 1,
+            "tableHeaders": [
+              "단계",
+              "실행 과제",
+              "완료 기준"
+            ]
+          },
+          {
+            "id": "review",
+            "heading": "검토 기준",
+            "required": true,
+            "level": 1
+          },
+          {
+            "id": "next",
+            "heading": "다음 행동",
+            "required": true,
+            "level": 1
+          }
+        ]
+      }
+    }
+  ]
 }
